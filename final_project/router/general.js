@@ -52,7 +52,12 @@ public_users.get('/title/:title',function (req, res) {
 public_users.get('/review/:isbn',function (req, res) {
   //Write your code here
   const isbn = req.params.isbn;
+  for (let key in books) {
+    if (key === isbn) {
+      return res.status(200).json(books[key].reviews);
+  }}}
 
-});
+
+);
 
 module.exports.general = public_users;
