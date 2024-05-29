@@ -7,6 +7,12 @@ let users = [];
 
 const isValid = (username)=>{ //returns boolean
 //write code to check is the username is valid
+let userName = req.body.username;
+for (key in regd_users){
+  if (key === userName){
+    return true;
+  }else return false;
+}
 }
 
 const authenticatedUser = (username,password)=>{ //returns boolean
