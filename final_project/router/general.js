@@ -3,6 +3,7 @@ const axios = require("axios");
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
+
 const public_users = express.Router();
 
 const doesExist = (username) => {
@@ -29,7 +30,6 @@ public_users.post("/register", (req, res) => {
   }
 });
 
-// Get the book list available in the shop
 public_users.get("/", async (req, res) => {
   try {
     const allBooks = await getAllBooks();
@@ -39,7 +39,6 @@ public_users.get("/", async (req, res) => {
   }
 });
 
-// Get book details based on ISBN
 public_users.get("/isbn/:isbn", async (req, res) => {
   const targetISBN = parseInt(req.params.isbn);
   const targetBook = await books[targetISBN];
@@ -50,9 +49,7 @@ public_users.get("/isbn/:isbn", async (req, res) => {
   }
 });
 
-// Get book details based on author
 public_users.get("/author/:author", async (req, res) => {
-  // get array of matching book objects
   const matchingBooks = Object.values(await books).filter(
     (book) => book.author.toLowerCase() === req.params.author.toLowerCase()
   );
@@ -63,7 +60,6 @@ public_users.get("/author/:author", async (req, res) => {
   }
 });
 
-// Get all books based on title
 public_users.get("/title/:title", async (req, res) => {
   const matchingTitle = Object.values(await books).filter(
     (book) => book.title.toLowerCase() === req.params.title.toLowerCase()
@@ -75,7 +71,6 @@ public_users.get("/title/:title", async (req, res) => {
   }
 });
 
-//  Get book review
 public_users.get("/review/:isbn", function (req, res) {
   const targetISBN = req.params.isbn;
   const targetBook = books[targetISBN];
